@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.wakedata</groupId>
+    <artifactId>wd-parent</artifactId>
+    <version>1.1.0-DDD04</version>
+  </parent>
+
+  <groupId>com.wakedt.visual</groupId>
+  <artifactId>visual-ddd-server</artifactId>
+  <version>0.0.2-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <properties>
+    <wd-common-core.version>1.2.3-DDD17</wd-common-core.version>
+    <easyexcel.version>2.2.6</easyexcel.version>
+    <tomcat-embed.version>9.0.48</tomcat-embed.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <!--Project modules-->
+      <dependency>
+        <groupId>com.wakedt.visual</groupId>
+        <artifactId>wd-visual-ddd-adapter</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.wakedt.visual</groupId>
+        <artifactId>wd-visual-ddd-app</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.wakedt.visual</groupId>
+        <artifactId>wd-visual-ddd-client</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.wakedt.visual</groupId>
+        <artifactId>wd-visual-ddd-domain</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.wakedt.visual</groupId>
+        <artifactId>wd-visual-ddd-infrastructure</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <!--Project modules End-->
+
+      <!-- wd-common dependency start-->
+      <dependency>
+        <groupId>com.wakedata.common</groupId>
+        <artifactId>wd-common-spring</artifactId>
+        <version>${wd-common-core.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.wakedata.common</groupId>
+        <artifactId>wd-common-core</artifactId>
+        <version>${wd-common-core.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.wakedata.common</groupId>
+        <artifactId>wd-common-log</artifactId>
+        <version>${wd-common-core.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.wakedata.common</groupId>
+        <artifactId>wd-common-mybatis</artifactId>
+        <version>${wd-common-core.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.wakedata.common</groupId>
+        <artifactId>wd-common-mq</artifactId>
+        <version>${wd-common-core.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.wakedata.common</groupId>
+        <artifactId>wd-common-domainevent</artifactId>
+        <version>${wd-common-core.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.wakedata.common</groupId>
+        <artifactId>wd-common-redis</artifactId>
+        <version>${wd-common-core.version}</version>
+      </dependency>
+      <!--      <dependency>-->
+      <!--          <groupId>com.wakedata</groupId>-->
+      <!--          <artifactId>spring-boot-xxl-job-starter</artifactId>-->
+      <!--          <version>2.2.0-WK</version>-->
+      <!--      </dependency>-->
+      <!-- wd-common dependency end-->
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>easyexcel</artifactId>
+        <version>${easyexcel.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.tomcat.embed</groupId>
+        <artifactId>tomcat-embed-core</artifactId>
+        <version>${tomcat-embed.version}</version>
+      </dependency>
+
+      <!-- mockito -->
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>4.2.0</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <!-- 使用父模块编译配置 -->
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+      </plugin>
+    </plugins>
+  </build>
+
+  <distributionManagement>
+    <!-- 配置release版本发布的仓库-->
+    <repository>
+      <id>central</id>
+      <name>libs-release-local</name>
+      <url>http://172.26.59.85:8081/artifactory/libs-release-local</url>
+    </repository>
+    <!-- 配置快照版本发布的仓库-->
+    <snapshotRepository>
+      <id>snapshots</id>
+      <name>libs-snapshot-local</name>
+      <url>http://172.26.59.85:8081/artifactory/libs-snapshot-local/</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <modules>
+    <module>wd-visual-ddd-adapter</module>
+    <module>wd-visual-ddd-app</module>
+    <module>wd-visual-ddd-client</module>
+    <module>wd-visual-ddd-domain</module>
+    <module>wd-visual-ddd-infrastructure</module>
+    <module>wd-visual-ddd-start</module>
+  </modules>
+</project>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wakedt.visual.infrastructure.domaindesign.repository.mapper.DomainDesignVersionMapper">
+
+    <select id="domainDesignVersionDetailQuery" parameterType="com.wakedt.visual.client.domaindesign.query.DomainDesignVersionDetailQuery"
+            resultType="com.wakedt.visual.infrastructure.domaindesign.repository.model.DomainDesignVersionDO">
+        SELECT *
+        FROM wd_domain_design_version t1
+        WHERE 1=1
+        <if test="id!=null">
+            AND t1.id = #{id}
+        </if>
+    </select>
+
+    <select id="domainDesignVersionPageQuery" parameterType="com.wakedt.visual.client.domaindesign.query.DomainDesignVersionPageQuery"
+            resultType="com.wakedt.visual.infrastructure.domaindesign.repository.model.DomainDesignVersionDO">
+        SELECT id, create_by, create_time, update_by, update_time, current_version, description, domain_design_id,
+        start_version, state
+        FROM wd_domain_design_version t1
+        WHERE 1=1
+        <if test="domainDesignId!=null">
+            AND t1.domain_design_id = #{domainDesignId}
+        </if>
+    </select>
+
+    <select id="selectBindDomainDesignList"
+            resultType="com.wakedt.visual.infrastructure.domaindesign.repository.model.DomainDesignVersionDO">
+        select *
+        from wd_domain_design_version t2
+                 join (SELECT domain_design_version_ids
+                       FROM wd_application_version
+                       where id = #{applicationVersionId}) t1
+        where JSON_CONTAINS(t1.domain_design_version_ids, JSON_ARRAY(t2.id));
+    </select>
+
+    <select id="selectBatchIdsExcludeDsl"
+            resultType="com.wakedt.visual.infrastructure.domaindesign.repository.model.DomainDesignVersionDO">
+        SELECT t1.id, t1.create_by, t1.create_time, t1.update_by, t1.update_time, t1.current_version, t1.description, t1.domain_design_id, t1.start_version, t1.state
+        FROM wd_domain_design_version t1
+        WHERE t1.id IN
+        <foreach item="id" collection="domainDesignVersionIds" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+</mapper>

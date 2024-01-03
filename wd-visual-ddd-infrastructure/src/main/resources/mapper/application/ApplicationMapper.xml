@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wakedt.visual.infrastructure.application.repository.mapper.ApplicationMapper">
+
+    <select id="applicationDetailQuery"
+            parameterType="com.wakedt.visual.client.application.query.ApplicationDetailQuery"
+            resultType="com.wakedt.visual.infrastructure.application.repository.model.ApplicationDO">
+        SELECT *
+        FROM wd_application t1
+        WHERE 1=1
+        <if test="id!=null">
+            AND t1.id = #{id}
+        </if>
+        AND is_deleted = 0
+    </select>
+
+
+    <select id="applicationPageQuery" parameterType="com.wakedt.visual.client.application.query.ApplicationPageQuery"
+            resultType="com.wakedt.visual.infrastructure.application.repository.model.ApplicationDO">
+        SELECT *
+        FROM wd_application t1
+        WHERE 1=1
+        <if test="teamId!=null">
+            AND t1.team_id = #{teamId}
+        </if>
+        <if test="name != null and name != ''">
+            AND t1.name like concat('%',#{name},'%')
+        </if>
+        AND is_deleted = 0
+    </select>
+
+    <select id="applicationListQuery"
+            resultType="com.wakedt.visual.infrastructure.application.repository.model.ApplicationDO">
+        SELECT *
+        FROM wd_application t1
+        WHERE t1.id IN
+        <foreach collection="idList" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+        AND is_deleted = 0
+    </select>
+</mapper>

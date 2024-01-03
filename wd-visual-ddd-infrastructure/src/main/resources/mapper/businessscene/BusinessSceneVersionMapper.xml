@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wakedt.visual.infrastructure.businessscene.repository.mapper.BusinessSceneVersionMapper">
+
+    <select id="businessSceneVersionDetailQuery" parameterType="com.wakedt.visual.client.businessscene.query.BusinessSceneVersionDetailQuery"
+            resultType="com.wakedt.visual.infrastructure.businessscene.repository.model.BusinessSceneVersionDO">
+        SELECT *
+        FROM wd_business_scene_version t1
+        WHERE 1=1
+        <if test="id!=null">
+            AND t1.id = #{id}
+        </if>
+    </select>
+
+    <select id="businessSceneVersionPageQuery" parameterType="com.wakedt.visual.client.businessscene.query.BusinessSceneVersionPageQuery"
+            resultType="com.wakedt.visual.infrastructure.businessscene.repository.model.BusinessSceneVersionDO">
+        SELECT id, create_by, create_time, update_by, update_time, business_scene_id, current_version, description,
+        start_version, state
+        FROM wd_business_scene_version t1
+        WHERE 1=1
+        <if test="businessSceneId!=null">
+            AND t1.business_scene_id = #{businessSceneId}
+        </if>
+    </select>
+
+    <select id="selectBindBusinessSceneList"
+            resultType="com.wakedt.visual.infrastructure.businessscene.repository.model.BusinessSceneVersionDO">
+        select *
+        from wd_business_scene_version t2
+                 join (SELECT business_scene_version_ids
+                       FROM wd_application_version
+                       where id = #{applicationVersionId}) t1
+        where JSON_CONTAINS(t1.business_scene_version_ids, JSON_ARRAY(t2.id));
+    </select>
+
+    <select id="selectBatchIdsExcludeDsl" resultType="com.wakedt.visual.infrastructure.businessscene.repository.model.BusinessSceneVersionDO">
+        SELECT t1.id, t1.create_by, t1.create_time, t1.update_by, t1.update_time, t1.business_scene_id, t1.current_version, t1.description, t1.start_version, t1.state
+        FROM wd_business_scene_version t1
+        WHERE t1.id IN
+        <foreach item="id" collection="businessSceneVersionIds" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+</mapper>

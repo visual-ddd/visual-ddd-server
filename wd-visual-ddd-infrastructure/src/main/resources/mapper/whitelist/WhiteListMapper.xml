@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wakedt.visual.infrastructure.whitelist.repository.mapper.WhiteListMapper">
+
+    <select id="whiteListQuery" parameterType="com.wakedt.visual.client.whitelist.query.WhiteListQuery"
+            resultType="com.wakedt.visual.infrastructure.whitelist.repository.model.WhiteListDO">
+        SELECT *
+        FROM wd_white_list t1
+        <where>
+            <if test="id != null">
+                AND t1.id = #{id}
+            </if>
+        </where>
+    </select>
+
+    <select id="whiteListPageQuery" parameterType="com.wakedt.visual.client.whitelist.query.WhiteListPageQuery"
+            resultType="com.wakedt.visual.infrastructure.whitelist.repository.model.WhiteListDO">
+        SELECT *
+        FROM wd_white_list t1
+        <where>
+        </where>
+    </select>
+
+</mapper>

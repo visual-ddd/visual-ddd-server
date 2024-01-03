@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wakedt.visual.infrastructure.organization.repository.mapper.OrganizationMapper">
+
+    <select id="organizationDetailQuery"
+            resultType="com.wakedt.visual.infrastructure.organization.repository.model.OrganizationDO">
+        SELECT *
+        FROM wd_organization t1
+        <where>
+            <if test="id!=null">
+                AND t1.id = #{id}
+            </if>
+            AND is_deleted = 0
+        </where>
+    </select>
+
+    <select id="organizationPageQuery" parameterType="com.wakedt.visual.client.organization.query.OrganizationPageQuery"
+            resultType="com.wakedt.visual.infrastructure.organization.repository.model.OrganizationDO">
+        SELECT *
+        FROM wd_organization t1
+        WHERE 1=1
+        <if test="name != null and name != ''">
+            AND t1.name like concat('%',#{name},'%')
+        </if>
+        AND is_deleted = 0
+    </select>
+
+    <select id="organizationInfoByAccountId"
+            resultType="com.wakedt.visual.infrastructure.organization.repository.model.OrganizationDO">
+        SELECT o.*
+        FROM wd_organization o
+        WHERE o.organization_manager_id = #{accountId}
+          AND is_deleted = 0
+        UNION
+        SELECT o.*
+        FROM wd_organization o
+                 INNER JOIN wd_organization_team t ON o.id = t.organization_id
+                 INNER JOIN wd_organization_team_member m ON t.id = m.team_id
+        WHERE m.account_id = #{accountId}
+    </select>
+
+</mapper>

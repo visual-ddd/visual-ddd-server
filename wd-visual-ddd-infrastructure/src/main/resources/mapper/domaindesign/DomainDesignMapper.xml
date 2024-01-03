@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wakedt.visual.infrastructure.domaindesign.repository.mapper.DomainDesignMapper">
+
+    <select id="domainDesignDetailQuery"
+            parameterType="com.wakedt.visual.client.domaindesign.query.DomainDesignDetailQuery"
+            resultType="com.wakedt.visual.infrastructure.domaindesign.repository.model.DomainDesignDO">
+        SELECT *
+        FROM wd_domain_design t1
+        WHERE 1=1
+        <if test="id!=null">
+            AND t1.id = #{id}
+        </if>
+        AND is_deleted = 0
+    </select>
+
+
+    <select id="domainDesignPageQuery" parameterType="com.wakedt.visual.client.domaindesign.query.DomainDesignPageQuery"
+            resultType="com.wakedt.visual.infrastructure.domaindesign.repository.model.DomainDesignDO">
+        SELECT *
+        FROM wd_domain_design t1
+        WHERE 1=1
+        <if test="teamId!=null">
+            AND t1.team_id = #{teamId}
+        </if>
+        <if test="name!=null and name!=''">
+            AND t1.name like concat('%',#{name},'%')
+        </if>
+        AND is_deleted = 0
+    </select>
+
+    <select id="domainDesignListQuery"
+            resultType="com.wakedt.visual.infrastructure.domaindesign.repository.model.DomainDesignDO">
+        SELECT *
+        FROM wd_domain_design t1
+        WHERE t1.id IN
+        <foreach collection="idList" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+        AND is_deleted = 0
+    </select>
+
+    <select id="selectBindBusinessSceneInfoList"
+            resultType="com.wakedt.visual.infrastructure.domaindesign.repository.model.DomainDesignVersionDO">
+        select *
+        from wd_domain_design t1
+        <foreach collection="domainDesignVersionIds" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+        AND is_deleted = 0
+    </select>
+
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wakedt.visual.infrastructure.user.repository.mapper.AccountMapper">
+
+    <select id="accountDetailQuery" parameterType="com.wakedt.visual.client.user.query.AccountDetailQuery"
+            resultType="com.wakedt.visual.infrastructure.user.repository.model.AccountDO">
+        SELECT *
+        FROM wd_account t1
+        WHERE 1=1
+        <if test="id!=null">
+            AND t1.id = #{id}
+        </if>
+    </select>
+
+
+    <select id="accountPageQuery" parameterType="com.wakedt.visual.client.user.query.AccountPageQuery"
+            resultType="com.wakedt.visual.infrastructure.user.repository.model.AccountDO">
+        SELECT *
+        FROM wd_account t1
+        WHERE 1=1
+            <if test="userName!=null and userName!=''">
+                AND t1.user_name like concat('%',#{userName},'%')
+                OR t1.account_no like concat('%',#{userName},'%')
+            </if>
+            <if test="organizationId!=null">
+                AND t1.organization_id = #{organizationId}
+            </if>
+            <if test="teamId!=null">
+                AND t1.team_id = #{teamId}
+            </if>
+    </select>
+
+
+</mapper>

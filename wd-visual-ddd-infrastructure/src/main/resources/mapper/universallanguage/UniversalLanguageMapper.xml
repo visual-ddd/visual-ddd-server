@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wakedt.visual.infrastructure.universallanguage.repository.mapper.UniversalLanguageMapper">
+
+    <select id="universalLanguageDetailQuery" parameterType="com.wakedt.visual.client.universallanguage.query.UniversalLanguageDetailQuery"
+            resultType="com.wakedt.visual.infrastructure.universallanguage.repository.model.UniversalLanguageDO">
+        SELECT *
+        FROM wd_universal_language t1
+        WHERE 1=1
+        <if test="id!=null">
+            AND t1.id = #{id}
+        </if>
+    </select>
+
+
+    <select id="universalLanguagePageQuery" parameterType="com.wakedt.visual.client.universallanguage.query.UniversalLanguagePageQuery"
+            resultType="com.wakedt.visual.infrastructure.universallanguage.repository.model.UniversalLanguageDO">
+        SELECT *
+        FROM wd_universal_language t1
+        <where>
+            <if test="conception!=null and conception!=''">
+                AND t1.conception like concat('%',#{conception},'%')
+            </if>
+            <if test="languageType!=null">
+                AND t1.language_type = #{languageType}
+            </if>
+            <if test="identity!=null">
+                AND t1.identity = #{identity}
+            </if>
+        </where>
+    </select>
+
+
+
+
+
+</mapper>

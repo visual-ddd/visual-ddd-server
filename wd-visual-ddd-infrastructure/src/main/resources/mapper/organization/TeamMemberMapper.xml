@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wakedt.visual.infrastructure.organization.repository.mapper.TeamMemberMapper">
+
+    <select id="teamMemberByTeamIdPageQuery" parameterType="com.wakedt.visual.client.organization.query.TeamMemberByTeamIdPageQuery"
+            resultType="com.wakedt.visual.infrastructure.organization.repository.model.TeamMemberDO">
+        SELECT *
+        FROM wd_organization_team_member t1
+        WHERE 1=1
+        <if test="teamId!=null">
+            AND t1.team_id = #{teamId}
+        </if>
+    </select>
+
+</mapper>

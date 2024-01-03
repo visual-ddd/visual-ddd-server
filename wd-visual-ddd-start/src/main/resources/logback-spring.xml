@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+  <!--设置存储路径变量-->
+  <property name="LOG_HOME" value="data/log/home"/>
+  <property name="PROJECT_NAME" value="@project.artifactId@"/>
+  <!--
+  日志格式
+   注释:
+         [%d]        日期格式 "2020-07-09 14:47:38,923"
+         [%-5d]      日志级别
+         [%t]        线程名
+         [${project.artifactId}:${project.version}]      项目名和项目版本
+         [%c{1}.%M(%F:%L)]       类名.方法名(文件名:行数)
+         [%X{env}]       当前环境
+         [%X{traceId}]   链路起始id(32位uuid)
+         [%X{spanId}]    当前链路id(8位uuid)
+         [%X{parentId}]  父链路id(8位uuid)
+         [%X{userId}]    用户id
+         [%X{tenantId}]  租户id
+         [%X{appBuId}]   应用业务单元id
+         [%X{buId}]      业务单元id
+         [%X{machineIp}] 当前机器ip
+         %m%n            日志内容
+  -->
+  <property name="LOG_PATTERN"
+    value="[%d] [%-5p] [%t] [@project.artifactId@:@project.version@] [%c{1}.%M] [%F:%L] [%X{env}] [%X{traceId}] [%X{parentId}] [%X{spanId}] [%X{userId}] [%X{tenantId}] [%X{appBuId}] [%X{buId}] [%X{machineIp}] %m%n"/>
+
+  <!--控制台输出appender-->
+  <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    <!--设置输出格式-->
+    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+      <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+      <pattern>${LOG_PATTERN}</pattern>
+      <!--设置编码-->
+      <charset>UTF-8</charset>
+    </encoder>
+  </appender>
+
+  <!--输出所有日志信息到指定文件,并交给kibana处理日志-->
+  <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!--日志名,指定最新的文件名，其他文件名使用FileNamePattern -->
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <!--打印日志的级别-->
+      <level>INFO</level>
+    </filter>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <!--日志文件输出的文件名,可设置文件类型为gz,开启文件压缩-->
+      <FileNamePattern>${LOG_HOME}/%d{yyyy_MM_dd}.jetty-custom.log</FileNamePattern>
+      <!--日志文件保留天数-->
+      <MaxHistory>30</MaxHistory>
+    </rollingPolicy>
+    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+      <pattern>${LOG_PATTERN}</pattern>
+      <charset>UTF-8</charset>
+    </encoder>
+  </appender>
+
+  <!--文件输出,时间窗口滚动-->
+  <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <!--日志名,指定最新的文件名，其他文件名使用FileNamePattern -->
+    <File>${LOG_HOME}/wd-visual-ddd-error.log</File>
+    <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+      <!--打印日志的级别-->
+      <level>ERROR</level>
+    </filter>
+    <!--文件滚动模式-->
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <!--日志文件输出的文件名,可设置文件类型为gz,开启文件压缩-->
+      <FileNamePattern>${LOG_HOME}/wd-visual-ddd-error.log.%d{yyyy-MM-dd}.%i.gz</FileNamePattern>
+      <!--日志文件保留天数-->
+      <MaxHistory>30</MaxHistory>
+      <!--按大小分割同一天的-->
+      <timeBasedFileNamingAndTriggeringPolicy
+        class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+        <maxFileSize>500MB</maxFileSize>
+      </timeBasedFileNamingAndTriggeringPolicy>
+    </rollingPolicy>
+    <!--输出格式-->
+    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+      <!--格式化输出-->
+      <pattern>${LOG_PATTERN}</pattern>
+      <!--设置编码-->
+      <charset>UTF-8</charset>
+    </encoder>
+  </appender>
+
+
+  <logger name="org.springframework">
+    <level value="info"/>
+  </logger>
+  <logger name="org.springframework.web">
+    <level value="info"/>
+  </logger>
+  <logger name="org.apache.http">
+    <level value="warn"/>
+  </logger>
+  <logger name="com.mchange.v2">
+    <level value="warn"/>
+  </logger>
+  <logger name="org.apache.kafka.clients.NetworkClient">
+    <level value="error"/>
+  </logger>
+
+  <logger name="com.alibaba.nacos">
+    <level value="warn"/>
+  </logger>
+
+  <logger name="org.apache.dubbo.config.spring.beans.factory.annotation">
+    <level value="warn"/>
+  </logger>
+  <logger name="org.springframework.context.support">
+    <level value="warn"/>
+  </logger>
+
+  <logger name="springfox.documentation.spring">
+    <level value="warn"/>
+  </logger>
+
+  <!--指定基础的日志输出级别-->
+  <root level="INFO">
+    <!--appender将会添加到这个logger-->
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="ERROR"/>
+    <appender-ref ref="INFO"/>
+  </root>
+</configuration>

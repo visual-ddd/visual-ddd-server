@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.wakedt.visual.infrastructure.application.repository.mapper.ApplicationVersionMapper">
+
+    <select id="applicationVersionDetailQuery" parameterType="com.wakedt.visual.client.application.query.ApplicationVersionDetailQuery"
+            resultType="com.wakedt.visual.infrastructure.application.repository.model.ApplicationVersionDO">
+        SELECT *
+        FROM wd_application_version t1
+        WHERE 1=1
+        <if test="id!=null">
+            AND t1.id = #{id}
+        </if>
+    </select>
+
+    <select id="applicationVersionPageQuery" parameterType="com.wakedt.visual.client.application.query.ApplicationVersionPageQuery"
+            resultType="com.wakedt.visual.infrastructure.application.repository.model.ApplicationVersionDO">
+        SELECT id, create_by, create_time, update_by, update_time, application_id,business_scene_version_ids,
+        current_version, description, domain_design_version_ids, start_version, state
+        FROM wd_application_version t1
+        WHERE 1=1
+        <if test="applicationId!=null">
+            AND t1.application_id = #{applicationId}
+        </if>
+    </select>
+
+    <select id="selectUnpublishedBSVersionBindCount"
+            resultType="com.wakedt.visual.infrastructure.application.repository.model.ApplicationVersionDO">
+        select *
+        from wd_application_version t1
+        join (select id
+        from wd_business_scene_version
+        where id in
+        <foreach collection="businessSceneVersionIds" separator="," open="(" close=")" item="item">
+            #{item}
+        </foreach>
+        and state != 2) t2
+        where JSON_CONTAINS(t1.business_scene_version_ids, JSON_ARRAY(t2.id))
+    </select>
+
+    <select id="selectUnpublishedDDVersionBindCount"
+            resultType="com.wakedt.visual.infrastructure.application.repository.model.ApplicationVersionDO">
+        select *
+        from wd_application_version t1
+        join (select id
+        from wd_domain_design_version
+        where id in
+        <foreach collection="domainDesignVersionIds" separator="," open="(" close=")" item="item">
+            #{item}
+        </foreach>
+        and state != 2) t2
+        where JSON_CONTAINS(t1.domain_design_version_ids, JSON_ARRAY(t2.id))
+    </select>
+
+
+</mapper>

@@ -1,0 +1,76 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /wd/visual
+
+spring:
+  application:
+    name: wd_visual_ddd
+  # 配置nacos
+  cloud:
+    nacos:
+      config:
+        enabled: false
+      discovery:
+        enabled: false
+  main:
+    allow-bean-definition-overriding: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  messages:
+    basename: classpath:i18n/messages;classpath:i18n/validate;classpath:i18n/common;
+  jpa:
+    # 启用 DDL 自动执行
+    generate-ddl: false
+    # 更新策略
+    ddl-auto: update
+  datasource:
+    name: wd-visual-ddd
+    url: ${common.mysql.url:jdbc:mysql://172.26.63.165:3306/wd_visual_ddd?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false&allowMultiQueries=true&autoReconnect=true}
+    username: ${common.mysql.username:mysqluser}
+    password: ${common.mysql.password:mysqluser}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      filters: stat
+      maxActive: 20
+      initialSize: 1
+      maxWait: 10000
+      minIdle: 1
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxOpenPreparedStatements: 20
+
+# 分页查询插件
+pagehelper:
+  helperDialect: mysql
+  reasonable: false     # 由于统一语言导出功能使用了穷尽分页场景，为避免死循环此处必须设为false
+  supportMethodsArguments: true
+  params: count=countSql
+
+# mybatis-plus相关配置
+mybatis-plus:
+  type-aliases-package: com.wakedt.visual.infrastructure.*.repository.model
+  mapper-locations: classpath:mapper/**/*.xml                 # 对应mapper映射xml文件的所在路径
+  configuration:
+    map-underscore-to-camel-case: true                        # 是否开启自动驼峰命名规则映射
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl     # sql打印
+    #log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl #关闭sql日志
+
+# 逻辑删除
+  global-config:
+    db-config:
+      logic-delete-field: isDeleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+logging:
+  config: classpath:logback-spring.xml
+
+env: dev
