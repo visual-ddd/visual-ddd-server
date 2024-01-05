@@ -3,4 +3,6 @@ ADD target/*.jar app.jar
 EXPOSE 8080
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     echo 'Asia/Shanghai' >/etc/timezone
-ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTIONS} -jar /app.jar ${EXTENSION_PARAMS}"]
+ENV JAVA_OPTIONS=""
+ENV EXTENSION_PARAMS=""
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTIONS $EXTENSION_PARAMS -jar /app.jar"]
