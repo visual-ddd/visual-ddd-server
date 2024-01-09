@@ -37,10 +37,48 @@ jobs:
           maven-version: '3.6.3'
           cache: maven
 
-      - name: Configure settings.xml
-        run: |
-          mkdir -p $HOME/.m2
-          echo "<settings><servers><server><id>github</id><username>${{ secrets.MAVEN_USERNAME }}</username><password>${{ secrets.MAVEN_TOKEN }}</password></server></servers></settings>" > $HOME/.m2/settings.xml
+  - name: Configure settings.xml
+    run: |
+      mkdir -p $HOME/.m2
+      echo "<settings>
+              <servers>
+                <server>
+                  <id>github</id>
+                  <username>${{ secrets.MAVEN_USERNAME }}</username>
+                  <password>${{ secrets.MAVEN_TOKEN }}</password>
+                </server>
+              </servers>
+              <mirrors>
+                <mirror>
+                  <id>github</id>
+                  <url>https://maven.pkg.github.com/visual-ddd/</url>
+                  <mirrorOf>central</mirrorOf>
+                </mirror>
+              </mirrors>
+            </settings>" > $HOME/.m2/settings.xml
 
-      - name: Build and deploy
-        run: mvn deploy
+  - name: Build and deploy
+    run: mvn deploy
+
+  - name: Configure settings.xml
+    run: |
+      mkdir -p $HOME/.m2
+      echo "<settings>
+              <servers>
+                <server>
+                  <id>github</id>
+                  <username>${{ secrets.MAVEN_USERNAME }}</username>
+                  <password>${{ secrets.MAVEN_TOKEN }}</password>
+                </server>
+              </servers>
+              <mirrors>
+                <mirror>
+                  <id>github</id>
+                  <url>https://maven.pkg.github.com/visual-ddd/wd-common-parent</url>
+                  <mirrorOf>central</mirrorOf>
+                </mirror>
+              </mirrors>
+            </settings>" > $HOME/.m2/settings.xml
+
+  - name: Build and deploy
+    run: mvn deploy
