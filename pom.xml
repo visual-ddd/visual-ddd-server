@@ -17,7 +17,7 @@
     <description>Visual DDD 后端服务</description>
 
     <properties>
-        <wd-common-core.version>1.2.3-DDD17</wd-common-core.version>
+        <wd-common-core.version>1.2.3-VD001</wd-common-core.version>
         <easyexcel.version>2.2.6</easyexcel.version>
         <tomcat-embed.version>9.0.48</tomcat-embed.version>
     </properties>
