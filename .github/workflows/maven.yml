@@ -48,13 +48,16 @@ jobs:
                       <password>${{ secrets.MAVEN_TOKEN }}</password>
                     </server>
                   </servers>
-                  <mirrors>
-                    <mirror>
+                  <repositories>
+                    <repository>
+                      <id>central</id>
+                      <url>https://repo.maven.apache.org/maven2</url>
+                    </repository>
+                    <repository>
                       <id>github</id>
                       <url>https://maven.pkg.github.com/visual-ddd/wd-common-parent</url>
-                      <mirrorOf>central</mirrorOf>
-                    </mirror>
-                  </mirrors>
+                    </repository>
+                  </repositories>
                 </settings>" > $HOME/.m2/settings.xml
 
       - name: Build and deploy
