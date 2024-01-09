@@ -1,5 +1,6 @@
 package com.wakedt.visual.app.domaindesign;
 
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.wakedata.common.core.dto.ResultDTO;
 import com.wakedt.visual.app.domaindesign.assembler.*;
 import com.wakedt.visual.app.domaindesign.view.DomainDesignDetailQueryExe;
@@ -19,7 +20,6 @@ import com.wakedt.visual.domain.domaindesign.domaindesignversion.update.DomainDe
 import com.wakedt.visual.domain.domaindesign.domaindesignversion.update.DomainDesignVersionUpdateCmdHandler;
 import com.wakedt.visual.domain.domaindesign.domaindesignversion.versionpblish.DomainDesignVersionPublishCmd;
 import com.wakedt.visual.domain.domaindesign.domaindesignversion.versionpblish.DomainDesignVersionPublishCmdHandler;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

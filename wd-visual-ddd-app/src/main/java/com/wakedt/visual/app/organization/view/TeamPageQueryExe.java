@@ -1,5 +1,6 @@
 package com.wakedt.visual.app.organization.view;
 
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.wakedata.common.core.dto.PageResultDTO;
@@ -10,7 +11,6 @@ import com.wakedt.visual.infrastructure.organization.repository.mapper.TeamMappe
 import com.wakedt.visual.infrastructure.organization.repository.model.TeamDO;
 import com.wakedt.visual.infrastructure.user.repository.mapper.AccountMapper;
 import com.wakedt.visual.infrastructure.user.repository.model.AccountDO;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;

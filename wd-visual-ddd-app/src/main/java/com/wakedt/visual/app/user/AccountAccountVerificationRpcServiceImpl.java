@@ -1,5 +1,6 @@
 package com.wakedt.visual.app.user;
 
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.wakedata.common.core.dto.ResultDTO;
 import com.wakedata.common.core.exception.BizException;
 import com.wakedt.visual.app.user.assembler.AccountCreateDTOConvert;
@@ -22,7 +23,6 @@ import com.wakedt.visual.domain.user.verifycode.create.AccountVerificationCreate
 import com.wakedt.visual.domain.user.verifycode.update.AccountVerificationUpdateCmd;
 import com.wakedt.visual.domain.user.verifycode.update.AccountVerificationUpdateCmdHandler;
 import com.wakedt.visual.domain.whitelist.whitelist.WhiteListRepository;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

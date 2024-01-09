@@ -20,6 +20,7 @@
         <wd-common-core.version>1.2.3-VD001</wd-common-core.version>
         <easyexcel.version>2.2.6</easyexcel.version>
         <tomcat-embed.version>9.0.48</tomcat-embed.version>
+        <wd-generator-core.version>4.0.1-RC01</wd-generator-core.version>
     </properties>
 
     <dependencyManagement>
@@ -65,11 +66,6 @@
             </dependency>
             <dependency>
                 <groupId>com.wakedata.common</groupId>
-                <artifactId>wd-common-log</artifactId>
-                <version>${wd-common-core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.wakedata.common</groupId>
                 <artifactId>wd-common-mybatis</artifactId>
                 <version>${wd-common-core.version}</version>
             </dependency>
@@ -88,12 +84,6 @@
                 <artifactId>wd-common-redis</artifactId>
                 <version>${wd-common-core.version}</version>
             </dependency>
-            <!--      <dependency>-->
-            <!--          <groupId>com.wakedata</groupId>-->
-            <!--          <artifactId>spring-boot-xxl-job-starter</artifactId>-->
-            <!--          <version>2.2.0-WK</version>-->
-            <!--      </dependency>-->
-            <!-- wd-common dependency end-->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>easyexcel</artifactId>
@@ -111,6 +101,18 @@
                 <artifactId>mockito-core</artifactId>
                 <version>4.2.0</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.wd.paas</groupId>
+                <artifactId>wd-generator-core</artifactId>
+                <version>${wd-generator-core.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-simple</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -125,6 +127,7 @@
         </plugins>
     </build>
 
+    <!--  发布到GitHub仓库  -->
     <distributionManagement>
         <repository>
             <id>github</id>

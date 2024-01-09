@@ -1,5 +1,6 @@
 package com.wakedt.visual.app.businessscene;
 
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.wakedata.common.core.dto.ResultDTO;
 import com.wakedata.common.core.exception.BizException;
 import com.wakedt.visual.app.businessscene.assembler.*;
@@ -19,7 +20,6 @@ import com.wakedt.visual.domain.businessscene.businesssceneversion.update.Busine
 import com.wakedt.visual.domain.businessscene.businesssceneversion.update.BusinessSceneVersionUpdateCmdHandler;
 import com.wakedt.visual.domain.businessscene.businesssceneversion.versionpblish.BusinessSceneVersionPblishCmdHandler;
 import com.wakedt.visual.domain.businessscene.businesssceneversion.versionpblish.BusinessSceneVersionPublishCmd;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

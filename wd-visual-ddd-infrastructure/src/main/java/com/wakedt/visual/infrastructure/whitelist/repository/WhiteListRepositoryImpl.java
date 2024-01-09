@@ -8,9 +8,9 @@ import com.wakedt.visual.infrastructure.whitelist.assembler.WhiteList2WhiteListD
 import com.wakedt.visual.infrastructure.whitelist.repository.mapper.WhiteListMapper;
 import com.wakedt.visual.infrastructure.whitelist.repository.model.WhiteListDO;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.List;

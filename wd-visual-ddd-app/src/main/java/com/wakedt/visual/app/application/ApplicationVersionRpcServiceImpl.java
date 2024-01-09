@@ -1,5 +1,6 @@
 package com.wakedt.visual.app.application;
 
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.wakedata.common.core.dto.ResultDTO;
 import com.wakedata.common.core.exception.BizException;
 import com.wakedt.visual.app.application.assembler.*;
@@ -23,7 +24,6 @@ import com.wakedt.visual.domain.application.applicationversion.remove.Applicatio
 import com.wakedt.visual.domain.application.applicationversion.update.ApplicationVersionUpdateCmd;
 import com.wakedt.visual.domain.application.applicationversion.update.ApplicationVersionUpdateCmdHandler;
 import com.wakedt.visual.domain.application.applicationversion.versionpublish.ApplicationVersionPublishCmdHandler;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

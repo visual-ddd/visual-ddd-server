@@ -22,7 +22,7 @@ import com.wakedt.visual.infrastructure.domaindesign.repository.mapper.DomainDes
 import com.wakedt.visual.infrastructure.domaindesign.repository.model.DomainDesignDO;
 import com.wakedt.visual.infrastructure.domaindesign.repository.model.DomainDesignVersionDO;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
@@ -164,7 +164,6 @@ public class ApplicationVersionRepositoryImpl implements ApplicationVersionRepos
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void checkUnpublishedBSVersionHasBindOther(ApplicationVersion applicationVersion, Set<Long> oldBusinessSceneVersionIds) {
         Set<Long> businessSceneVersionIds = applicationVersion.getBusinessSceneVersionIds();
         Collection<Long> compareIds = CollectionUtils.subtract(businessSceneVersionIds, oldBusinessSceneVersionIds);
@@ -179,7 +178,6 @@ public class ApplicationVersionRepositoryImpl implements ApplicationVersionRepos
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public void checkUnpublishedDDVersionHasBindOther(ApplicationVersion applicationVersion, Set<Long> oldDomainDesignIds) {
         Set<Long> domainDesignVersionIds = applicationVersion.getDomainDesignVersionIds();
         Collection<Long> compareIds = CollectionUtils.subtract(domainDesignVersionIds, oldDomainDesignIds);
