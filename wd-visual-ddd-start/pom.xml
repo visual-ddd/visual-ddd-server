@@ -78,7 +78,7 @@
                         <image>
                             <name>visualddd/server</name>
                             <build>
-                                <dockerFileDir>${project.basedir}</dockerFileDir>
+                                <dockerFileDir>${project.basedir}/src/main/docker</dockerFileDir>
                                 <tags>
                                     <tag>visualddd/server:${project.version}</tag>
                                 </tags>
