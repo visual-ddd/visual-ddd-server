@@ -35,7 +35,7 @@ public class ApplicationDetailQueryExe {
     @Resource
     private ApplicationVersionMapper applicationVersionMapper;
     @Resource
-    private ApplicationVersionDetailQueryExe applicationVersionDetailQueryExe;
+    private ApplicationVersionDetailExcludeDslQueryExe applicationVersionDetailQueryExe;
 
     public ResultDTO<ApplicationDTO> execute(ApplicationDetailQuery query) {
         ApplicationDO applicationDO = Optional.ofNullable(applicationMapper.applicationDetailQuery(query))

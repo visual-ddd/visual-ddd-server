@@ -25,9 +25,12 @@ import java.util.Optional;
 
 /**
  * 查询应用版本详情-查询器
+ * <p>
+ * 查询性能差，该类已废弃，不再使用
  *
  * @author zhuxueliang
  */
+@Deprecated
 @Component
 public class ApplicationVersionDetailQueryExe {
 
