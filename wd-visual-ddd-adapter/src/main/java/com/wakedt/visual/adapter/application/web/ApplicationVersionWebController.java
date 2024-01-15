@@ -85,7 +85,7 @@ public class ApplicationVersionWebController {
     @ApiOperation("查询应用版本详情")
     @GetMapping("/application-version-detail-query")
     public ResultDTO<ApplicationVersionDTO> applicationVersionDetailQuery(ApplicationVersionDetailQuery query) {
-        return applicationVersionRpcService.applicationVersionDetailQuery(query);
+        return applicationVersionRpcService.applicationVersionDetailQueryExcludeDSL(query);
     }
 
     @ApiOperation("查询应用版本详情(包含业务域和业务场景版本信息，不包含DSL)")
