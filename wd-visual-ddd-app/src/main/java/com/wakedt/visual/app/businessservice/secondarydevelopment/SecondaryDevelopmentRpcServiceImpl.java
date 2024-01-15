@@ -44,7 +44,7 @@ public class SecondaryDevelopmentRpcServiceImpl implements SecondaryDevelopmentR
     @Resource
     private ApplicationDetailQueryExe applicationDetailQueryExe;
     @Resource
-    private ApplicationVersionDetailExcludeDslQueryExe applicationVersionDetailQueryExe;
+    private ApplicationVersionDetailExcludeDslQueryExe applicationVersionDetailExcludeDslQueryExe;
     @Resource
     private BusinessSceneDetailQueryExe businessSceneDetailQueryExe;
     @Resource
@@ -67,7 +67,7 @@ public class SecondaryDevelopmentRpcServiceImpl implements SecondaryDevelopmentR
 
     @Override
     public ResultDTO<ApplicationBindModelInfoDTO> getApplicationBindModelInfo(GetApplicationBindModelInfo request) {
-        ApplicationVersionDTO applicationVersionDTO = applicationVersionDetailQueryExe.execute(new ApplicationVersionDetailQuery(request.getId())).getData();
+        ApplicationVersionDTO applicationVersionDTO = applicationVersionDetailExcludeDslQueryExe.execute(new ApplicationVersionDetailQuery(request.getId())).getData();
         ApplicationDTO applicationDTO = applicationDetailQueryExe.execute(new ApplicationDetailQuery(applicationVersionDTO.getApplicationId())).getData();
 
         ApplicationBindModelInfoDTO result = BeanUtil.copy(applicationVersionDTO, ApplicationBindModelInfoDTO.class);

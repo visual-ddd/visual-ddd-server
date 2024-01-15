@@ -35,7 +35,7 @@ public class ApplicationDetailQueryExe {
     @Resource
     private ApplicationVersionMapper applicationVersionMapper;
     @Resource
-    private ApplicationVersionDetailExcludeDslQueryExe applicationVersionDetailQueryExe;
+    private ApplicationVersionDetailExcludeDslQueryExe applicationVersionDetailExcludeDslQueryExe;
 
     public ResultDTO<ApplicationDTO> execute(ApplicationDetailQuery query) {
         ApplicationDO applicationDO = Optional.ofNullable(applicationMapper.applicationDetailQuery(query))
@@ -49,7 +49,7 @@ public class ApplicationDetailQueryExe {
         ApplicationVersionDO applicationLatestVersionDO = getApplicationLatestVersionDO(query);
         ApplicationVersionDetailQuery detailQuery = new ApplicationVersionDetailQuery();
         detailQuery.setId(applicationLatestVersionDO.getId());
-        ResultDTO<ApplicationVersionDTO> resultDTO = applicationVersionDetailQueryExe.execute(detailQuery);
+        ResultDTO<ApplicationVersionDTO> resultDTO = applicationVersionDetailExcludeDslQueryExe.execute(detailQuery);
         return resultDTO.getData();
     }
 
