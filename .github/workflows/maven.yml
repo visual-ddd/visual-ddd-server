@@ -82,7 +82,9 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and push Docker image
-        run: mvn docker:build docker:push
+        run: |
+          cd wd-visual-ddd-start
+          mvn docker:build docker:push
 
       - name: Build and deploy
         run: mvn deploy
