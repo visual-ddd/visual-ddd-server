@@ -5,6 +5,7 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.wakedata.common.core.exception.BizException;
+import com.wakedata.common.core.resultcode.CommonResultCode;
 import com.wakedt.visual.domain.application.applicationversion.ApplicationVersion;
 import com.wakedt.visual.domain.application.applicationversion.ApplicationVersionRepository;
 import com.wakedt.visual.infrastructure.application.assembler.ApplicationVersionDoConvert;
@@ -79,6 +80,9 @@ public class ApplicationVersionRepositoryImpl implements ApplicationVersionRepos
     @Override
     public ApplicationVersion find(Long id) {
         ApplicationVersionDO applicationVersion = applicationVersionMapper.selectById(id);
+        if (applicationVersion == null) {
+            throw new BizException(CommonResultCode.NOT_EXISTS);
+        }
         return ApplicationVersionDoConvert.INSTANCE.do2Dto(applicationVersion);
     }
 
@@ -208,22 +212,32 @@ public class ApplicationVersionRepositoryImpl implements ApplicationVersionRepos
         for (DomainDesignVersionDO domainDesignVersionDO : domainDesignVersionDOList) {
             JSONObject domainDesignJson = JSONUtil.parseObj(domainDesignVersionDO.getDomainDesignDsl());
             DomainDesignDO domainDesignDO = domainDesignMapper.selectById(domainDesignVersionDO.getDomainDesignId());
+            if (domainDesignDO == null) {
+                log.error("业务域不存在，id:{}", domainDesignVersionDO.getDomainDesignId());
+                continue;
+            }
             domainDesignJson.putAll(getDomainDesignInfoMap(domainDesignVersionDO, domainDesignDO));
             domainDesignArray.add(domainDesignJson);
         }
 
         JSONArray businessSceneArray = JSONUtil.createArray();
         for (BusinessSceneVersionDO businessSceneVersionDO : businessSceneVersionDOList) {
-            JSONObject jsonObject = JSONUtil.parseObj(businessSceneVersionDO.getDsl());
+            JSONObject businessSceneJson = JSONUtil.parseObj(businessSceneVersionDO.getDsl());
             BusinessSceneDO businessSceneDO = businessSceneMapper.selectById(businessSceneVersionDO.getBusinessSceneId());
-            jsonObject.putAll(getBusinessSceneInfoMap(businessSceneVersionDO, businessSceneDO));
-            businessSceneArray.add(jsonObject);
+            if (businessSceneDO == null) {
+                log.error("业务场景不存在，id:{}", businessSceneVersionDO.getBusinessSceneId());
+                continue;
+            }
+            businessSceneJson.putAll(getBusinessSceneInfoMap(businessSceneVersionDO, businessSceneDO));
+            businessSceneArray.add(businessSceneJson);
         }
 
+        // 更新为用户勾选的模块
         applicationJson.remove("businessDomains");
-        applicationJson.putOnce("businessDomains", domainDesignArray);
         applicationJson.remove("businessScenarios");
+        applicationJson.putOnce("businessDomains", domainDesignArray);
         applicationJson.putOnce("businessScenarios", businessSceneArray);
+
         applicationVersionGateway.generateCode(applicationJson.toString(), outputStream);
     }
 
