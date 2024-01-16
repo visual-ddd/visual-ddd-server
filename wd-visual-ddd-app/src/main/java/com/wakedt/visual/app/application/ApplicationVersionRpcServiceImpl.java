@@ -5,7 +5,6 @@ import com.wakedata.common.core.dto.ResultDTO;
 import com.wakedata.common.core.exception.BizException;
 import com.wakedt.visual.app.application.assembler.*;
 import com.wakedt.visual.app.application.view.ApplicationVersionDetailExcludeDslQueryExe;
-import com.wakedt.visual.app.application.view.ApplicationVersionDetailQueryExe;
 import com.wakedt.visual.app.application.view.ApplicationVersionPageQueryExe;
 import com.wakedt.visual.client.application.ApplicationVersionRpcService;
 import com.wakedt.visual.client.application.dto.*;
@@ -54,8 +53,6 @@ public class ApplicationVersionRpcServiceImpl implements ApplicationVersionRpcSe
     @Resource
     private ApplicationCodeGenerateCmdHandler applicationCodeGenerateCmdHandler;
     @Resource
-    private ApplicationVersionDetailQueryExe applicationVersionDetailQueryExe;
-    @Resource
     private ApplicationVersionDetailExcludeDslQueryExe applicationVersionDetailExcludeDslQueryExe;
     @Resource
     private ApplicationVersionPageQueryExe applicationVersionPageQueryExe;
@@ -74,7 +71,7 @@ public class ApplicationVersionRpcServiceImpl implements ApplicationVersionRpcSe
     private ApplicationVersionDTO getStartVersionById(Long id) {
         ApplicationVersionDetailQuery detailQuery = new ApplicationVersionDetailQuery();
         detailQuery.setId(id);
-        ApplicationVersionDTO startVersionDTO = applicationVersionDetailQueryExe.execute(detailQuery).getData();
+        ApplicationVersionDTO startVersionDTO = applicationVersionDetailExcludeDslQueryExe.execute(detailQuery).getData();
         if (startVersionDTO == null) {
             throw new BizException("起始版本ID不存在！");
         }
@@ -129,7 +126,7 @@ public class ApplicationVersionRpcServiceImpl implements ApplicationVersionRpcSe
 
     @Override
     public ResultDTO<ApplicationVersionDTO> applicationVersionDetailQuery(ApplicationVersionDetailQuery query) {
-        return applicationVersionDetailQueryExe.execute(query);
+        return applicationVersionDetailExcludeDslQueryExe.execute(query);
     }
 
     @Override

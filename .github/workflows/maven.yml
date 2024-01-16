@@ -71,5 +71,20 @@ jobs:
                   </activeProfiles>
                 </settings>" > $HOME/.m2/settings.xml
 
+      - name: Build Maven project
+        run: mvn clean package
+
+      # 构建镜像
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and push Docker image
+        run: |
+          cd wd-visual-ddd-start
+          mvn docker:build docker:push
+
       - name: Build and deploy
         run: mvn deploy

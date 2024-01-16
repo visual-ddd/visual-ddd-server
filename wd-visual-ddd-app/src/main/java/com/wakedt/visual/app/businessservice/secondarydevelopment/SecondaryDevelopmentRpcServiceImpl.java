@@ -3,7 +3,7 @@ package com.wakedt.visual.app.businessservice.secondarydevelopment;
 import com.wakedata.common.core.dto.ResultDTO;
 import com.wakedata.common.core.util.BeanUtil;
 import com.wakedt.visual.app.application.view.ApplicationDetailQueryExe;
-import com.wakedt.visual.app.application.view.ApplicationVersionDetailQueryExe;
+import com.wakedt.visual.app.application.view.ApplicationVersionDetailExcludeDslQueryExe;
 import com.wakedt.visual.app.businessscene.view.BusinessSceneDetailQueryExe;
 import com.wakedt.visual.app.businessscene.view.BusinessSceneVersionDetailQueryExe;
 import com.wakedt.visual.app.domaindesign.view.DomainDesignDetailQueryExe;
@@ -44,7 +44,7 @@ public class SecondaryDevelopmentRpcServiceImpl implements SecondaryDevelopmentR
     @Resource
     private ApplicationDetailQueryExe applicationDetailQueryExe;
     @Resource
-    private ApplicationVersionDetailQueryExe applicationVersionDetailQueryExe;
+    private ApplicationVersionDetailExcludeDslQueryExe applicationVersionDetailExcludeDslQueryExe;
     @Resource
     private BusinessSceneDetailQueryExe businessSceneDetailQueryExe;
     @Resource
@@ -67,7 +67,7 @@ public class SecondaryDevelopmentRpcServiceImpl implements SecondaryDevelopmentR
 
     @Override
     public ResultDTO<ApplicationBindModelInfoDTO> getApplicationBindModelInfo(GetApplicationBindModelInfo request) {
-        ApplicationVersionDTO applicationVersionDTO = applicationVersionDetailQueryExe.execute(new ApplicationVersionDetailQuery(request.getId())).getData();
+        ApplicationVersionDTO applicationVersionDTO = applicationVersionDetailExcludeDslQueryExe.execute(new ApplicationVersionDetailQuery(request.getId())).getData();
         ApplicationDTO applicationDTO = applicationDetailQueryExe.execute(new ApplicationDetailQuery(applicationVersionDTO.getApplicationId())).getData();
 
         ApplicationBindModelInfoDTO result = BeanUtil.copy(applicationVersionDTO, ApplicationBindModelInfoDTO.class);
