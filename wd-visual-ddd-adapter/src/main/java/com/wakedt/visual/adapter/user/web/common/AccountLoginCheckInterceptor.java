@@ -43,6 +43,7 @@ public class AccountLoginCheckInterceptor implements HandlerInterceptor {
 
         AccountInfo accountInfo = JSONUtil.toBean(attribute.toString(), AccountInfo.class);
         accountInfo.setUserId(accountInfo.getUserName());
+        accountInfo.setNickName(accountInfo.getUserName());
         UserInfoContext.setUser(accountInfo);
         // 目前用户会话过期时间默认为永久, 因此不刷新用户会话缓存时间
         // AccountInfoHelper.refreshIPaasUserSessionExpireTime(session);
