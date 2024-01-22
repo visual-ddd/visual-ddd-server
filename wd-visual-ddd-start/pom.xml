@@ -74,6 +74,7 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <skip>true</skip>
                     <images>
                         <image>
                             <name>visualddd/server</name>
