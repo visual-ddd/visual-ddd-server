@@ -111,15 +111,14 @@ public class ApplicationVersionRepositoryImpl implements ApplicationVersionRepos
         if (domainDesignVersionIds.isEmpty()) {
             return;
         }
-        List<DomainDesignVersionDO> domainDesignVersionDOList = domainDesignVersionMapper.selectList(
-                new LambdaQueryWrapper<DomainDesignVersionDO>()
-                        .in(DomainDesignVersionDO::getId, domainDesignVersionIds));
-        long count = domainDesignVersionDOList.stream()
-                .map(DomainDesignVersionDO::getDomainDesignId)
-                .distinct().count();
-        if (count != domainDesignVersionDOList.size()) {
-            throw new BizException("不能关联业务域,同一业务域只能关联一个版本号");
+        List<Long> domainDesignIdList = domainDesignVersionMapper.selectBindIds(domainDesignVersionIds);
+        if (hasDuplicates(domainDesignIdList)) {
+            throw new BizException("同一业务域只能关联一个版本号");
         }
+    }
+
+    private boolean hasDuplicates(List<Long> list) {
+        return list.size() != new HashSet<>(list).size();
     }
 
     @Override
@@ -128,41 +127,32 @@ public class ApplicationVersionRepositoryImpl implements ApplicationVersionRepos
         if (businessSceneVersionIds.isEmpty()) {
             return;
         }
-        List<BusinessSceneVersionDO> businessSceneDOList = businessSceneVersionMapper.selectList(
-                new LambdaQueryWrapper<BusinessSceneVersionDO>()
-                        .in(BusinessSceneVersionDO::getId, businessSceneVersionIds));
-        long count = businessSceneDOList.stream()
-                .map(BusinessSceneVersionDO::getBusinessSceneId)
-                .distinct().count();
-        if (count != businessSceneDOList.size()) {
-            throw new BizException("不能关联业务场景,同一业务场景只能关联一个版本号");
+        List<Long> businessSceneIdList = businessSceneVersionMapper.selectBindIds(businessSceneVersionIds);
+        if (hasDuplicates(businessSceneIdList)) {
+            throw new BizException("同一业务场景只能关联一个版本号");
         }
     }
 
     @Override
     public void checkExistBusinessSceneVersionVersionIds(ApplicationVersion applicationVersion) {
-        Collection<Long> businessSceneVersionIds = applicationVersion.getBusinessSceneVersionIds();
+        Set<Long> businessSceneVersionIds = applicationVersion.getBusinessSceneVersionIds();
         if (businessSceneVersionIds.isEmpty()) {
             return;
         }
-        Integer count = businessSceneVersionMapper.selectCount(
-                new LambdaQueryWrapper<BusinessSceneVersionDO>()
-                        .in(BusinessSceneVersionDO::getId, businessSceneVersionIds));
-        if (count != businessSceneVersionIds.size()) {
+        List<Long> businessSceneIdList = businessSceneVersionMapper.selectBindIds(businessSceneVersionIds);
+        if (!Objects.equals(businessSceneIdList.size(), businessSceneVersionIds.size())) {
             throw new BizException("关联业务场景ID不存在！");
         }
     }
 
     @Override
     public void checkExistDomainDesignVersionIds(ApplicationVersion applicationVersion) {
-        Collection<Long> domainDesignVersionIds = applicationVersion.getDomainDesignVersionIds();
+        Set<Long> domainDesignVersionIds = applicationVersion.getDomainDesignVersionIds();
         if (domainDesignVersionIds.isEmpty()) {
             return;
         }
-        Integer count = domainDesignVersionMapper.selectCount(
-                new LambdaQueryWrapper<DomainDesignVersionDO>()
-                        .in(DomainDesignVersionDO::getId, domainDesignVersionIds));
-        if (count != domainDesignVersionIds.size()) {
+        List<Long> domainDesignIdList = domainDesignVersionMapper.selectBindIds(domainDesignVersionIds);
+        if (!Objects.equals(domainDesignIdList.size(), domainDesignVersionIds.size())) {
             throw new BizException("关联业务域ID不存在！");
         }
     }

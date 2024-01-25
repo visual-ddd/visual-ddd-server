@@ -45,4 +45,13 @@
         </foreach>
     </select>
 
+    <select id="selectBindIds" resultType="java.lang.Long">
+        SELECT t1.domain_design_id
+        FROM wd_domain_design_version t1
+        WHERE t1.id IN
+        <foreach item="id" collection="domainDesignVersionIds" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
 </mapper>
