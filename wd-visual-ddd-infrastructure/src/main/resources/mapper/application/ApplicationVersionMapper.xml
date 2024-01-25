@@ -27,7 +27,7 @@
 
     <select id="selectUnpublishedBSVersionBindCount"
             resultType="com.wakedt.visual.infrastructure.application.repository.model.ApplicationVersionDO">
-        select *
+        select t1.*
         from wd_application_version t1
         join (select id
         from wd_business_scene_version
@@ -41,7 +41,7 @@
 
     <select id="selectUnpublishedDDVersionBindCount"
             resultType="com.wakedt.visual.infrastructure.application.repository.model.ApplicationVersionDO">
-        select *
+        select t1.*
         from wd_application_version t1
         join (select id
         from wd_domain_design_version
