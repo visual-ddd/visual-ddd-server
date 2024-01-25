@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 业务场景版本Mapper接口
@@ -38,4 +39,9 @@ public interface BusinessSceneVersionMapper extends BaseMapper<BusinessSceneVers
      * 批量查询业务场景版本信息，排除DSL
      */
     List<BusinessSceneVersionDO> selectBatchIdsExcludeDsl(@Param("businessSceneVersionIds") List<Long> businessSceneVersionIds);
+
+    /**
+     * 查询关联id列表
+     */
+    List<Long> selectBindIds(@Param("businessSceneVersionIds") Set<Long> businessSceneVersionIds);
 }

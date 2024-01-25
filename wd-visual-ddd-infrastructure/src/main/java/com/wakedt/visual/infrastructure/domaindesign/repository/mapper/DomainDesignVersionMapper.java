@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 业务域版本Mapper接口
@@ -48,4 +49,11 @@ public interface DomainDesignVersionMapper extends BaseMapper<DomainDesignVersio
      */
     List<DomainDesignVersionDO> selectBatchIdsExcludeDsl(@Param("domainDesignVersionIds") List<Long> domainDesignVersionIds);
 
+    /**
+     * 查询关联id列表
+     *
+     * @param domainDesignVersionIds 业务域版本id列表
+     * @return 关联id列表
+     */
+    List<Long> selectBindIds(@Param("domainDesignVersionIds") Set<Long> domainDesignVersionIds);
 }
