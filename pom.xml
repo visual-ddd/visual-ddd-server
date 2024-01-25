@@ -12,7 +12,7 @@
 
     <groupId>com.wakedt.visual</groupId>
     <artifactId>visual-ddd-server</artifactId>
-    <version>1.0.2-RC02</version>
+    <version>1.0.2-RC03-S1</version>
     <packaging>pom</packaging>
     <description>Visual DDD 后端服务</description>
 
