@@ -6,6 +6,7 @@ import com.wakedata.common.core.exception.BizException;
 import com.wakedt.visual.app.businessscene.assembler.*;
 import com.wakedt.visual.app.businessscene.view.BusinessSceneVersionDetailQueryExe;
 import com.wakedt.visual.app.businessscene.view.BusinessSceneVersionPageQueryExe;
+import com.wakedt.visual.app.businessscene.view.BusinessSceneVersionSimpleQueryExe;
 import com.wakedt.visual.client.businessscene.BusinessSceneVersionRpcService;
 import com.wakedt.visual.client.businessscene.dto.*;
 import com.wakedt.visual.client.businessscene.query.BusinessSceneVersionDetailQuery;
@@ -48,6 +49,8 @@ public class BusinessSceneVersionRpcServiceImpl implements BusinessSceneVersionR
     private BusinessSceneVersionDetailQueryExe businessSceneVersionDetailQueryExe;
     @Resource
     private BusinessSceneVersionPageQueryExe businessSceneVersionPageQueryExe;
+    @Resource
+    private BusinessSceneVersionSimpleQueryExe businessSceneVersionSimpleQueryExe;
 
 
     @Override
@@ -112,6 +115,12 @@ public class BusinessSceneVersionRpcServiceImpl implements BusinessSceneVersionR
     public ResultDTO<BusinessSceneVersionDTO> businessSceneVersionDetailQuery(BusinessSceneVersionDetailQuery query) {
         return businessSceneVersionDetailQueryExe.execute(query);
     }
+
+    @Override
+    public ResultDTO<BusinessSceneVersionDTO> businessSceneVersionSimpleQuery(BusinessSceneVersionDetailQuery query) {
+        return businessSceneVersionSimpleQueryExe.execute(query);
+    }
+
 
     @Override
     public ResultDTO<List<BusinessSceneVersionDTO>> businessSceneVersionPageQuery(BusinessSceneVersionPageQuery pageQuery) {

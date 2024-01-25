@@ -63,6 +63,12 @@ public class DomainDesignVersionWebController {
         return domainDesignVersionRpcService.domainDesignVersionDetailQuery(query);
     }
 
+    @ApiOperation("查询业务域版本简介")
+    @GetMapping("/domain-design-version-simple-query")
+    public ResultDTO<DomainDesignVersionDTO> domainDesignVersionSimpleQuery(DomainDesignVersionDetailQuery query) {
+        return domainDesignVersionRpcService.domainDesignVersionSimpleQuery(query);
+    }
+
     @ApiOperation("分页查询业务域版本信息")
     @GetMapping("/domain-design-version-page-query")
     public ResultDTO<List<DomainDesignVersionDTO>> domainDesignVersionPageQuery(DomainDesignVersionPageQuery pageQuery) {

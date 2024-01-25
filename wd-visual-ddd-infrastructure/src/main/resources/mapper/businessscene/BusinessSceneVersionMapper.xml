@@ -14,6 +14,18 @@
         </if>
     </select>
 
+    <select id="businessSceneVersionSimpleQuery" parameterType="com.wakedt.visual.client.businessscene.query.BusinessSceneVersionDetailQuery"
+            resultType="com.wakedt.visual.infrastructure.businessscene.repository.model.BusinessSceneVersionDO">
+        SELECT id, create_by, create_time, update_by, update_time, business_scene_id, current_version, description,
+        start_version, state
+        FROM wd_business_scene_version t1
+        <where>
+            <if test="id!=null">
+                AND t1.id = #{id}
+            </if>
+        </where>
+    </select>
+
     <select id="businessSceneVersionPageQuery" parameterType="com.wakedt.visual.client.businessscene.query.BusinessSceneVersionPageQuery"
             resultType="com.wakedt.visual.infrastructure.businessscene.repository.model.BusinessSceneVersionDO">
         SELECT id, create_by, create_time, update_by, update_time, business_scene_id, current_version, description,
