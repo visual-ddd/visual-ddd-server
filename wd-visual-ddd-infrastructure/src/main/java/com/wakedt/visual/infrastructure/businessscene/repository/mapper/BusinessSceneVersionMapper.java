@@ -24,6 +24,11 @@ public interface BusinessSceneVersionMapper extends BaseMapper<BusinessSceneVers
     BusinessSceneVersionDO businessSceneVersionDetailQuery(BusinessSceneVersionDetailQuery query);
 
     /**
+     * 查询业务场景版本简介
+     */
+    BusinessSceneVersionDO businessSceneVersionSimpleQuery(BusinessSceneVersionDetailQuery query);
+
+    /**
      * 分页查询业务场景版本信息
      */
     List<BusinessSceneVersionDO> businessSceneVersionPageQuery(BusinessSceneVersionPageQuery pageQuery);

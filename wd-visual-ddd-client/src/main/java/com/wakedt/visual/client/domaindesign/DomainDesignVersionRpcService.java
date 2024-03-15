@@ -63,6 +63,14 @@ public interface DomainDesignVersionRpcService {
     ResultDTO<DomainDesignVersionDTO> domainDesignVersionDetailQuery(DomainDesignVersionDetailQuery query);
 
     /**
+     * 查询业务域版本简介
+     *
+     * @param query 查询条件参数
+     * @return DomainDesignVersionDTO
+     */
+    ResultDTO<DomainDesignVersionDTO> domainDesignVersionSimpleQuery(DomainDesignVersionDetailQuery query);
+
+    /**
      * 分页查询业务域版本信息
      *
      * @param pageQuery 查询条件

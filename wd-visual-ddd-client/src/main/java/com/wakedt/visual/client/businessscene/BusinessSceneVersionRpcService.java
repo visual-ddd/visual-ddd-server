@@ -45,6 +45,11 @@ public interface BusinessSceneVersionRpcService {
     ResultDTO<BusinessSceneVersionDTO> businessSceneVersionDetailQuery(BusinessSceneVersionDetailQuery query);
 
     /**
+     * 查询业务场景版本简介
+     */
+    ResultDTO<BusinessSceneVersionDTO> businessSceneVersionSimpleQuery(BusinessSceneVersionDetailQuery query);
+
+    /**
      * 分页查询业务场景版本信息
      */
     ResultDTO<List<BusinessSceneVersionDTO>> businessSceneVersionPageQuery(BusinessSceneVersionPageQuery pageQuery);

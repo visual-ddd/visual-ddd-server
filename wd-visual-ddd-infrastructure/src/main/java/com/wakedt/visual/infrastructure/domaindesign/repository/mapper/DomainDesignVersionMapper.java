@@ -27,6 +27,14 @@ public interface DomainDesignVersionMapper extends BaseMapper<DomainDesignVersio
     DomainDesignVersionDO domainDesignVersionDetailQuery(DomainDesignVersionDetailQuery query);
 
     /**
+     * 查询业务域版本简介
+     *
+     * @param query 查询条件
+     * @return DomainDesignVersionDO
+     */
+    DomainDesignVersionDO domainDesignVersionSimpleQuery(DomainDesignVersionDetailQuery query);
+
+    /**
      * 分页查询业务域版本信息
      *
      * @param pageQuery 查询条件

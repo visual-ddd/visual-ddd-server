@@ -14,6 +14,18 @@
         </if>
     </select>
 
+    <select id="domainDesignVersionSimpleQuery" parameterType="com.wakedt.visual.client.domaindesign.query.DomainDesignVersionDetailQuery"
+            resultType="com.wakedt.visual.infrastructure.domaindesign.repository.model.DomainDesignVersionDO">
+        SELECT id, create_by, create_time, update_by, update_time, current_version, description, domain_design_id,
+        start_version, state
+        FROM wd_domain_design_version t1
+        <where>
+            <if test="id!=null">
+                AND t1.id = #{id}
+            </if>
+        </where>
+    </select>
+
     <select id="domainDesignVersionPageQuery" parameterType="com.wakedt.visual.client.domaindesign.query.DomainDesignVersionPageQuery"
             resultType="com.wakedt.visual.infrastructure.domaindesign.repository.model.DomainDesignVersionDO">
         SELECT id, create_by, create_time, update_by, update_time, current_version, description, domain_design_id,

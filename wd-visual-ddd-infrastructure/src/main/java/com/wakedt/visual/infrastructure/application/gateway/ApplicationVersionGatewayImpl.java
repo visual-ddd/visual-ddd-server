@@ -2,6 +2,7 @@ package com.wakedt.visual.infrastructure.application.gateway;
 
 import com.wd.paas.dsl.ApplicationDsl;
 import com.wd.paas.generator.CodeGenerateService;
+import com.wd.paas.generator.common.enums.ProjectTemplateType;
 import com.wd.paas.generator.common.util.GsonUtil;
 import com.wd.paas.generator.generate.visitor.velocitytemplate.TemplateContext;
 import com.wd.paas.generator.generate.visitor.velocitytemplate.TemplateVisitor;
@@ -19,9 +20,12 @@ public class ApplicationVersionGatewayImpl implements ApplicationVersionGateway 
 
     @Override
     public void generateCode(String dsl, ZipOutputStream outputStream) {
-        TemplateVisitor templateVisitor = new TemplateVisitor(new TemplateContext(outputStream));
         ApplicationDsl applicationDsl = GsonUtil.fromJson(dsl, ApplicationDsl.class);
         CodeGenerateService codeGenerateService = new CodeGenerateService(applicationDsl);
+        TemplateContext templateContext = new TemplateContext(outputStream);
+        templateContext.setIsGenerateProjectFrame(true);
+        templateContext.setProjectTemplateType(ProjectTemplateType.COLA);
+        TemplateVisitor templateVisitor = new TemplateVisitor(templateContext);
         codeGenerateService.run(templateVisitor);
     }
 }

@@ -6,6 +6,7 @@ import com.wakedt.visual.app.domaindesign.assembler.*;
 import com.wakedt.visual.app.domaindesign.view.DomainDesignDetailQueryExe;
 import com.wakedt.visual.app.domaindesign.view.DomainDesignVersionDetailQueryExe;
 import com.wakedt.visual.app.domaindesign.view.DomainDesignVersionPageQueryExe;
+import com.wakedt.visual.app.domaindesign.view.DomainDesignVersionSimpleQueryExe;
 import com.wakedt.visual.client.domaindesign.DomainDesignVersionRpcService;
 import com.wakedt.visual.client.domaindesign.dto.*;
 import com.wakedt.visual.client.domaindesign.query.DomainDesignVersionDetailQuery;
@@ -50,7 +51,7 @@ public class DomainDesignVersionRpcServiceImpl implements DomainDesignVersionRpc
     @Resource
     private DomainDesignVersionPageQueryExe domainDesignVersionPageQueryExe;
     @Resource
-    private DomainDesignDetailQueryExe domainDesignDetailQueryExe;
+    private DomainDesignVersionSimpleQueryExe domainDesignVersionSimpleQueryExe;
 
 
     @Transactional(rollbackFor = Exception.class)
@@ -107,6 +108,12 @@ public class DomainDesignVersionRpcServiceImpl implements DomainDesignVersionRpc
     public ResultDTO<DomainDesignVersionDTO> domainDesignVersionDetailQuery(DomainDesignVersionDetailQuery query) {
         return domainDesignVersionDetailQueryExe.execute(query);
     }
+
+    @Override
+    public ResultDTO<DomainDesignVersionDTO> domainDesignVersionSimpleQuery(DomainDesignVersionDetailQuery query) {
+        return domainDesignVersionSimpleQueryExe.execute(query);
+    }
+
 
     @Override
     public ResultDTO<List<DomainDesignVersionDTO>> domainDesignVersionPageQuery(DomainDesignVersionPageQuery pageQuery) {

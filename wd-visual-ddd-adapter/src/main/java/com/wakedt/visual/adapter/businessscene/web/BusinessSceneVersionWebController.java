@@ -63,6 +63,12 @@ public class BusinessSceneVersionWebController {
         return businessSceneVersionRpcService.businessSceneVersionDetailQuery(query);
     }
 
+    @ApiOperation("查询业务场景版本简介")
+    @GetMapping("/business-scene-version-simple-query")
+    public ResultDTO<BusinessSceneVersionDTO> businessSceneVersionSimpleQuery(BusinessSceneVersionDetailQuery query) {
+        return businessSceneVersionRpcService.businessSceneVersionSimpleQuery(query);
+    }
+
     @ApiOperation("分页查询业务场景版本信息")
     @GetMapping("/business-scene-version-page-query")
     public ResultDTO<List<BusinessSceneVersionDTO>> businessSceneVersionPageQuery(BusinessSceneVersionPageQuery pageQuery) {
