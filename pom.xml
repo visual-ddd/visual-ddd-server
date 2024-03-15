@@ -20,7 +20,7 @@
         <wd-common-core.version>1.2.3-VD001</wd-common-core.version>
         <easyexcel.version>2.2.6</easyexcel.version>
         <tomcat-embed.version>9.0.48</tomcat-embed.version>
-        <wd-generator-core.version>4.0.1-RC02</wd-generator-core.version>
+        <wd-generator-core.version>4.0.1-RC03</wd-generator-core.version>
     </properties>
 
     <dependencyManagement>
