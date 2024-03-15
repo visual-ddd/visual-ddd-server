@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.wakedt.visual</groupId>
         <artifactId>visual-ddd-server</artifactId>
-        <version>1.0.2-RC03</version>
+        <version>1.0.2-RC04</version>
     </parent>
 
     <artifactId>wd-visual-ddd-app</artifactId>
